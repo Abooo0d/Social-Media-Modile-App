@@ -1,0 +1,100 @@
+import {
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  View,
+  Image,
+} from "react-native";
+import React, { useState } from "react";
+import Logo from "../../../assets/images/logo.png";
+import { Colors } from "../../../../Constants/Colors";
+import { Link } from "expo-router";
+import Layout from "../Layout";
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  return (
+    <Layout>
+      <View>
+        <Text style={styles.text}>Email:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor={Colors.light4}
+          selectionColor={Colors.primary}
+          value={email}
+          onChangeText={(e) => setEmail(e)}
+        />
+      </View>
+      <View>
+        <Text style={styles.text}>Password:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="password"
+          placeholderTextColor={Colors.light4}
+          keyboardType="default"
+          secureTextEntry
+          selectionColor={Colors.primary}
+          value={password}
+          onChangeText={(e) => setPassword(e)}
+        />
+      </View>
+      <TouchableOpacity style={styles.btn}>
+        <Text style={styles.btnText}>Login</Text>
+      </TouchableOpacity>
+      <View>
+        <Text style={styles.createAccountText}>
+          Don`t Have An Account?!{" "}
+          <Text
+            style={{
+              color: Colors.light3,
+              textDecorationLine: "underline",
+              paddingBottom: 5,
+            }}
+          >
+            {" "}
+            <Link href="/Auth/Forms/Sign-up">Create One</Link>
+          </Text>
+        </Text>
+      </View>
+    </Layout>
+  );
+};
+
+export default Login;
+
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: Colors.dark3,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    fontSize: 18,
+    color: Colors.light3,
+    borderRadius: 10,
+    height: 50,
+    width: 250,
+    marginTop: 10,
+  },
+  text: { color: Colors.light2, fontSize: 20, marginLeft: 10 },
+  btn: {
+    backgroundColor: Colors.primary,
+    width: 250,
+    textAlign: "center",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 20,
+    transition: 200,
+  },
+  btnText: {
+    textAlign: "center",
+    color: "#fff",
+    fontSize: 20,
+  },
+  createAccountText: {
+    color: Colors.light2,
+    fontSize: 16,
+    textAlign: "center",
+  },
+});
