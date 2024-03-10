@@ -2,6 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Colors } from "../../../Constants/Colors";
 import Logo from "../../assets/images/logo.png";
+import { QueryProvider } from "../../../lib/React-Query/QueryProvider";
 const Layout = ({ children }) => {
   return (
     <View style={styles.view}>
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     gap: 30,
     width: "100%",
     display: "flex",
+    position: "relative",
   },
   logo: {
     height: 70,

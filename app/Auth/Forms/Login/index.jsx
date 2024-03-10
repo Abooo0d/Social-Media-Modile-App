@@ -4,16 +4,72 @@ import {
   TouchableOpacity,
   Text,
   View,
-  Image,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
-import Logo from "../../../assets/images/logo.png";
+import React, { useEffect, useState } from "react";
 import { Colors } from "../../../../Constants/Colors";
 import { Link } from "expo-router";
 import Layout from "../Layout";
+import { useSignInAccount } from "../../../../lib/React-Query/queriesAndMutation";
+import { useUserContext } from "../../../../Context/AuthContext";
+import { useRouter } from "expo-router";
 const Login = () => {
+  // Fields
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const {
+    checkAuthUser,
+    isLoading: isUserLoading,
+    isAuthenticated,
+    storage,
+  } = useUserContext();
+  const { mutateAsync: signInAccount, isPending: isSignIngInAccount } =
+    useSignInAccount();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const minPasswordLength = 8;
+  // Functions
+  const onSubmit = async () => {
+    try {
+      const user = { email: email, password: password };
+      const session = await signInAccount(user);
+      if (!session) {
+        console.log("No Session Created");
+        setErrors((prevErrors) => [
+          ...prevErrors,
+          "Theres An Error, Please Try Again",
+        ]);
+        return;
+      }
+      if (session.$id === undefined) {
+        setErrors((prevErrors) => {
+          if (!prevErrors.includes(session)) {
+            return [...prevErrors, `${session} \n`];
+          } else {
+            return prevErrors;
+          }
+        });
+      } else {
+        setErrors((prevErrors) => {
+          return prevErrors.filter((error) => error != `${session} \n`);
+        });
+      }
+      const IsLoggedIn = await checkAuthUser();
+      if (IsLoggedIn) {
+        console.log("user Is Logged in");
+        router.navigate("/Root/Pages/Home");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.navigate("/Root/Pages/Home");
+    }
+  }, []);
+
   return (
     <Layout>
       <View>
@@ -25,6 +81,29 @@ const Login = () => {
           selectionColor={Colors.primary}
           value={email}
           onChangeText={(e) => setEmail(e)}
+          keyboardType="email-address"
+          onBlur={() => {
+            if (!emailRegex.test(email)) {
+              setErrors((prevErrors) => {
+                if (
+                  !prevErrors.includes("Please enter a valid email address \n")
+                ) {
+                  return [
+                    ...prevErrors,
+                    "Please enter a valid email address \n",
+                  ];
+                } else {
+                  return prevErrors;
+                }
+              });
+            } else {
+              setErrors((prevErrors) => {
+                return prevErrors.filter(
+                  (error) => error != "Please enter a valid email address \n"
+                );
+              });
+            }
+          }}
         />
       </View>
       <View>
@@ -38,9 +117,38 @@ const Login = () => {
           selectionColor={Colors.primary}
           value={password}
           onChangeText={(e) => setPassword(e)}
+          onBlur={() => {
+            if (password.length < minPasswordLength) {
+              // setErrors((prevErrors) => [
+              //   ...prevErrors,
+              //   `Password must be at least 8 characters long`,
+              // ]);
+              setErrors((prevErrors) => {
+                if (
+                  !prevErrors.includes(
+                    "Password must be at least 8 characters long \n"
+                  )
+                ) {
+                  return [
+                    ...prevErrors,
+                    "Password must be at least 8 characters long \n",
+                  ];
+                } else {
+                  return prevErrors;
+                }
+              });
+            } else {
+              setErrors((prevErrors) => {
+                return prevErrors.filter(
+                  (error) =>
+                    error != "Password must be at least 8 characters long \n"
+                );
+              });
+            }
+          }}
         />
       </View>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => onSubmit()}>
         <Text style={styles.btnText}>Login</Text>
       </TouchableOpacity>
       <View>
@@ -57,6 +165,23 @@ const Login = () => {
             <Link href="/Auth/Forms/Sign-up">Create One</Link>
           </Text>
         </Text>
+      </View>
+      <View>
+        <Text style={styles.error}>{errors.map((error) => error)}</Text>
+      </View>
+      <View
+        style={{
+          width: "100%",
+          height: "150%",
+          display: isSignIngInAccount ? "flex" : "none",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          justifyContent: "center",
+          alignItems: "center",
+          opacity: 0.5,
+          position: "absolute",
+        }}
+      >
+        <ActivityIndicator color={Colors.primary} size={"large"} />
       </View>
     </Layout>
   );
@@ -97,4 +222,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
+  error: { color: "crimson", fontSize: 20, textAlign: "center" },
 });
