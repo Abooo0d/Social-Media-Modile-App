@@ -16,7 +16,7 @@ import {
   useSignInAccount,
 } from "../../../../lib/React-Query/queriesAndMutation";
 import { useUserContext } from "../../../../Context/AuthContext";
-
+import { useRouter } from "expo-router";
 const SignUp = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
@@ -25,6 +25,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const minPasswordLength = 8;
+  const router = useRouter();
   const {
     checkAuthUser,
     isLoading: isUserLoading,
@@ -62,7 +63,6 @@ const SignUp = () => {
     };
     const session = await signInAccount(sessionData);
     if (!session) {
-      console.log("No Session Created");
       setErrors((prevErrors) => [
         ...prevErrors,
         "Theres An Error, Please Try Again",

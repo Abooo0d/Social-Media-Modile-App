@@ -7,7 +7,6 @@ const Layout = () => {
     <Stack
       screenOptions={{
         headerShown: false,
-        headerStyle: { backgroundColor: "red" },
       }}
     ></Stack>
   );

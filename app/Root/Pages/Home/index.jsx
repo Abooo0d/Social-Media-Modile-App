@@ -1,43 +1,71 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect } from "react";
 import { useUserContext } from "../../../../Context/AuthContext";
-import { useSignOutAccount } from "../../../../lib/React-Query/queriesAndMutation";
-import { useRouter } from "expo-router";
+import {
+  useGetPosts,
+  useSignOutAccount,
+} from "../../../../lib/React-Query/queriesAndMutation";
+import { Stack, useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Colors } from "../../../../Constants/Colors";
+import PostCard from "../../../Components/PostCard";
+
 const HomePage = () => {
   const router = useRouter();
-  const { storage, checkAuthUser, isAuthenticated } = useUserContext();
-  const { mutateAsync: signOut } = useSignOutAccount();
+  const { isAuthenticated } = useUserContext();
+  const { user } = useUserContext();
+  const { data: posts, isPending: isGettingPosts } = useGetPosts();
   useEffect(() => {
-    console.log("Home Page Check Auth User");
     if (!isAuthenticated) {
       router.navigate("/Auth/Forms/Login");
     }
+    // console.log(posts.pages[0].documents);
   }, []);
 
   return (
-    <View>
-      <Text>HomePage</Text>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "red",
-          padding: 20,
-          width: 100,
-          marginTop: 20,
-        }}
-        onPress={async () => {
-          signOut();
-          const isLoggedIn = await checkAuthUser();
-          if (!isLoggedIn) {
-            router.navigate("/Auth/Forms/Login");
-          }
-        }}
+    <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
       >
-        <Text style={{ color: "#fff", fontSize: 20 }}>SignOut</Text>
-      </TouchableOpacity>
-    </View>
+        <Text style={styles.title}>HomeFeed</Text>
+        {!isGettingPosts &&
+          posts.pages[0].documents?.map((post, index) => (
+            <PostCard post={post} />
+          ))}
+      </ScrollView>
+    </>
   );
 };
 
 export default HomePage;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: Colors.dark1,
+    margin: 0,
+    padding: 0,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    padding: 10,
+    display: "flex",
+    flexDirection: "column",
+  },
+  title: {
+    color: "#fff",
+    fontSize: 30,
+    margin: 10,
+    marginLeft: 20,
+    marginBottom: 20,
+    fontWeight: "700",
+  },
+});

@@ -67,9 +67,10 @@ const Login = () => {
   };
   useEffect(() => {
     if (isAuthenticated) {
+      console.log("Login Page Use Effect");
       router.navigate("/Root/Pages/Home");
     }
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <Layout>
