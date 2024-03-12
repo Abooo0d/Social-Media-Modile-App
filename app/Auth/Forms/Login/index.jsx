@@ -44,20 +44,21 @@ const Login = () => {
       }
       if (session.$id === undefined) {
         setErrors((prevErrors) => {
-          if (!prevErrors.includes(session)) {
-            return [...prevErrors, `${session} \n`];
+          if (!prevErrors.includes(`${"Login Error,Please Try Again"} \n`)) {
+            return [...prevErrors, `${"Login Error,Please Try Again"} \n`];
           } else {
             return prevErrors;
           }
         });
       } else {
         setErrors((prevErrors) => {
-          return prevErrors.filter((error) => error != `${session} \n`);
+          return prevErrors.filter(
+            (error) => error != `${"Login Error,Please Try Again"} \n`
+          );
         });
       }
       const IsLoggedIn = await checkAuthUser();
       if (IsLoggedIn) {
-        console.log("user Is Logged in");
         router.navigate("/Root/Pages/Home");
       }
     } catch (error) {
@@ -119,10 +120,6 @@ const Login = () => {
           onChangeText={(e) => setPassword(e)}
           onBlur={() => {
             if (password.length < minPasswordLength) {
-              // setErrors((prevErrors) => [
-              //   ...prevErrors,
-              //   `Password must be at least 8 characters long`,
-              // ]);
               setErrors((prevErrors) => {
                 if (
                   !prevErrors.includes(
