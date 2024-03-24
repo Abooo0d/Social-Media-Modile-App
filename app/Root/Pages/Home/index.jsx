@@ -21,7 +21,6 @@ import FollowersBar from "../../../Components/Containers/FollowersBar";
 const HomePage = () => {
   const router = useRouter();
   const { isAuthenticated } = useUserContext();
-  const { user } = useUserContext();
   const { data: posts, isPending: isGettingPosts } = useGetPosts();
   useEffect(() => {
     if (!isAuthenticated) {

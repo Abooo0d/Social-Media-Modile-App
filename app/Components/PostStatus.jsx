@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   buttons: {
     padding: 5,
     borderRadius: 10,
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",

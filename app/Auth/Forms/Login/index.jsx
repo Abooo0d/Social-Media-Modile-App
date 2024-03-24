@@ -35,7 +35,6 @@ const Login = () => {
       const user = { email: email, password: password };
       const session = await signInAccount(user);
       if (!session) {
-        console.log("No Session Created");
         setErrors((prevErrors) => [
           ...prevErrors,
           "Theres An Error, Please Try Again",
@@ -67,7 +66,6 @@ const Login = () => {
   };
   useEffect(() => {
     if (isAuthenticated) {
-      console.log("Login Page Use Effect");
       router.navigate("/Root/Pages/Home");
     }
   }, [isAuthenticated]);

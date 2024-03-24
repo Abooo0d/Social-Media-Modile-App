@@ -43,10 +43,12 @@ const AuthProvider = ({ children }) => {
         });
         storage.set("USER_TOKEN", currentAccount.$id);
         setIsAuthenticated(true);
+        router.navigate("/Root/Pages/Home");
         return true;
       }
       storage.delete("USER_TOKEN");
       setIsAuthenticated(false);
+      router.navigate("Auth/Forms/Login");
       return false;
     } catch (error) {
       console.log(error);
@@ -65,7 +67,6 @@ const AuthProvider = ({ children }) => {
     ) {
       router.navigate("Auth/Forms/Login");
       checkAuthUser();
-      // console.log("No Token");
     } else {
       router.navigate("/Root/Pages/Home");
       checkAuthUser();
