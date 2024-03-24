@@ -6,9 +6,7 @@ export default function Layout() {
   return (
     <AuthProvider>
       <QueryProvider>
-        {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
         <Slot />
-        {/* </GestureHandlerRootView> */}
       </QueryProvider>
     </AuthProvider>
   );

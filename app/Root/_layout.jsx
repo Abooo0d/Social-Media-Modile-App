@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack } from "expo-router";
+import { Tabs } from "expo-router";
 import { Colors } from "../../Constants/Colors";
 import Logo from "../assets/images/logo-s.png";
 import Profile from "../assets/images/profile.png";
@@ -10,14 +10,14 @@ import { FontAwesome5 } from "@expo/vector-icons";
 const _layout = () => {
   const { user } = useUserContext();
   return (
-    <Stack
+    <Tabs
       screenOptions={{
         headerShown: true,
+        tabBarActiveTintColor: Colors.primary,
         headerStyle: {
           backgroundColor: Colors.dark3,
-          color: "white",
         },
-        headerTintColor: "#fff",
+        headerTintColor: Colors.light2,
         headerShadowVisible: true,
         headerLeft: () => (
           <TouchableOpacity
@@ -28,6 +28,7 @@ const _layout = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginLeft: 10,
             }}
           >
             <Image
@@ -41,12 +42,13 @@ const _layout = () => {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <TouchableOpacity style={{ width: 35, height: 35 }}>
+          <TouchableOpacity style={{ width: 35, height: 35, marginRight: 10 }}>
             {user?.imageUrl ? (
               <Image
                 source={{ uri: user.imageUrl } || Profile}
                 style={{
-                  tintColor: Colors.primary,
+                  // tintColor: ,
+                  tintColor: !user.imageUrl ? Colors.primary : "",
                   width: 35,
                   height: 35,
                   objectFit: "contain",
@@ -58,60 +60,55 @@ const _layout = () => {
             )}
           </TouchableOpacity>
         ),
-      }}
-    >
-      <Stack.Screen
-        name="Pages/Home/index"
-        options={{
-          title: "Home",
-        }}
-      />
-    </Stack>
-  );
-};
-<Stack.Screen
-  options={{
-    headerTintColor: "white",
-    headerStyle: {
-      backgroundColor: Colors.dark1,
-    },
-    headerShadowVisible: true,
-    headerLeft: () => (
-      <TouchableOpacity
-        style={{
-          width: 50,
-          height: 50,
-          padding: 10,
+        tabBarStyle: {
+          backgroundColor: Colors.dark3,
+          activeTintColor: Colors.primary,
+          inactiveTintColor: Colors.dark4,
+          borderTopWidth: 2,
+          borderTopColor: Colors.dark3,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="Pages/Home/index"
+        options={{
+          title: "Home",
+          headerTitleStyle: {
+            color: "white",
+          },
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome5
+              size={28}
+              name="home"
+              color={focused ? Colors.primary : "#aaa"}
+            />
+          ),
         }}
-      >
-        <Image
-          source={Logo}
-          style={{
-            width: 30,
-            height: 30,
-            objectFit: "contain",
-          }}
-        />
-      </TouchableOpacity>
-    ),
-    headerRight: () => (
-      <TouchableOpacity style={{ width: 35, height: 35 }}>
-        <Image
-          source={{ uri: user.imageUrl } || Profile}
-          style={{
-            tintColor: Colors.primary,
-            width: 35,
-            height: 35,
-            objectFit: "contain",
-            borderRadius: 100,
-          }}
-        />
-      </TouchableOpacity>
-    ),
-  }}
-/>;
+      />
+      <Tabs.Screen
+        name="Pages/Chats/index"
+        options={{
+          title: "Chats",
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              size={24}
+              color={focused ? Colors.primary : "#aaa"}
+            />
+          ),
+        }}
+        listeners={() => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            alert("Abood");
+          },
+        })}
+      />
+    </Tabs>
+  );
+};
 
 export default _layout;

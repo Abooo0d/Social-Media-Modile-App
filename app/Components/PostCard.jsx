@@ -2,7 +2,10 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Colors } from "../../Constants/Colors";
 import { multiFormatDateString } from "../utils";
+import PostStatus from "./PostStatus";
+import { useUserContext } from "../../Context/AuthContext";
 const PostCard = ({ post }) => {
+  const { user } = useUserContext();
   return (
     <View style={styles.card}>
       <View style={styles.userInfo}>
@@ -26,6 +29,7 @@ const PostCard = ({ post }) => {
         ))}
       </View>
       <Image source={{ uri: post.imageUrl }} style={styles.image} />
+      <PostStatus post={post} userId={user.id} />
     </View>
   );
 };
@@ -36,16 +40,15 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     minHeight: 400,
-    maxHeight: 600,
     display: "flex",
     flexDirection: "column",
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-    borderRadius: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 15,
     backgroundColor: Colors.dark3,
     borderWidth: 1,
     borderColor: "rgba(35,35,35,1)",
-    gap: 10,
+    gap: 2,
     color: Colors.light3,
     marginBottom: 20,
   },
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
     gap: 0,
   },
   userFullName: {
-    color: "#fff",
+    color: Colors.light2,
     fontSize: 20,
   },
   postDate: {
@@ -78,11 +81,12 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
+    marginBottom: 5,
   },
   tags: {
     color: Colors.light3,
     fontSize: 18,
   },
-  caption: { color: "white", fontSize: 18, marginBottom: 5 },
-  image: { flex: 1, borderRadius: 20 },
+  caption: { color: Colors.light2, fontSize: 18, marginBottom: 5 },
+  image: { flex: 1, borderRadius: 20, minHeight: 300, maxHeight: 500 },
 });

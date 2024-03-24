@@ -16,6 +16,7 @@ import { Stack, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../../../Constants/Colors";
 import PostCard from "../../../Components/PostCard";
+import FollowersBar from "../../../Components/Containers/FollowersBar";
 
 const HomePage = () => {
   const router = useRouter();
@@ -26,7 +27,6 @@ const HomePage = () => {
     if (!isAuthenticated) {
       router.navigate("/Auth/Forms/Login");
     }
-    // console.log(posts.pages[0].documents);
   }, []);
 
   return (
@@ -35,10 +35,11 @@ const HomePage = () => {
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}
       >
+        <FollowersBar />
         <Text style={styles.title}>HomeFeed</Text>
         {!isGettingPosts &&
           posts.pages[0].documents?.map((post, index) => (
-            <PostCard post={post} />
+            <PostCard post={post} key={index} />
           ))}
       </ScrollView>
     </>
