@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useGetUsers } from "../../../lib/React-Query/queriesAndMutation";
-import UserCard from "../UserCard";
 import { Colors } from "../../../Constants/Colors";
+import FollowerCard from "../FollowerCard";
 
 const FollowersBar = () => {
   const { data: users, isPending: isLoading } = useGetUsers();
@@ -16,7 +16,7 @@ const FollowersBar = () => {
         showsHorizontalScrollIndicator={false}
       >
         {users?.pages[0]?.documents.map((user, index) => (
-          <UserCard user={user} key={index} />
+          <FollowerCard user={user} key={index} />
         ))}
       </ScrollView>
     </View>
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   title: {
     color: "#fff",
     fontSize: 30,
-    margin: 10,
     marginLeft: 20,
     fontWeight: "700",
+    padding: 0,
   },
 });

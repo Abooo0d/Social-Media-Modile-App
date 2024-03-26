@@ -8,12 +8,8 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { useUserContext } from "../../../../Context/AuthContext";
-import {
-  useGetPosts,
-  useSignOutAccount,
-} from "../../../../lib/React-Query/queriesAndMutation";
-import { Stack, useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useGetPosts } from "../../../../lib/React-Query/queriesAndMutation";
+import { useRouter } from "expo-router";
 import { Colors } from "../../../../Constants/Colors";
 import PostCard from "../../../Components/PostCard";
 import FollowersBar from "../../../Components/Containers/FollowersBar";
