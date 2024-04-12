@@ -31,7 +31,7 @@ const index = () => {
     <View style={styles.usersForm}>
       <TextInput
         style={styles.input}
-        placeholder="What Are You Looking For"
+        placeholder="How Are You Looking For"
         placeholderTextColor={Colors.light4}
         selectionColor={Colors.primary}
         value={searchValue}

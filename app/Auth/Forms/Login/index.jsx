@@ -72,113 +72,136 @@ const Login = () => {
 
   return (
     <Layout>
-      <View>
-        <Text style={styles.text}>Email:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor={Colors.light4}
-          selectionColor={Colors.primary}
-          value={email}
-          onChangeText={(e) => setEmail(e)}
-          keyboardType="email-address"
-          onBlur={() => {
-            if (!emailRegex.test(email)) {
-              setErrors((prevErrors) => {
-                if (
-                  !prevErrors.includes("Please enter a valid email address \n")
-                ) {
-                  return [
-                    ...prevErrors,
-                    "Please enter a valid email address \n",
-                  ];
-                } else {
-                  return prevErrors;
-                }
-              });
-            } else {
-              setErrors((prevErrors) => {
-                return prevErrors.filter(
-                  (error) => error != "Please enter a valid email address \n"
-                );
-              });
-            }
+      {isUserLoading ? (
+        <View
+          style={{
+            width: "100%",
+            height: "150%",
+            display: isSignIngInAccount ? "flex" : "none",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            justifyContent: "center",
+            alignItems: "center",
+            opacity: 0.5,
+            position: "absolute",
           }}
-        />
-      </View>
-      <View>
-        <Text style={styles.text}>Password:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="password"
-          placeholderTextColor={Colors.light4}
-          keyboardType="default"
-          secureTextEntry
-          selectionColor={Colors.primary}
-          value={password}
-          onChangeText={(e) => setPassword(e)}
-          onBlur={() => {
-            if (password.length < minPasswordLength) {
-              setErrors((prevErrors) => {
-                if (
-                  !prevErrors.includes(
-                    "Password must be at least 8 characters long \n"
-                  )
-                ) {
-                  return [
-                    ...prevErrors,
-                    "Password must be at least 8 characters long \n",
-                  ];
+        >
+          <ActivityIndicator color={Colors.primary} size={"large"} />
+        </View>
+      ) : (
+        <>
+          <View>
+            <Text style={styles.text}>Email:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor={Colors.light4}
+              selectionColor={Colors.primary}
+              value={email}
+              onChangeText={(e) => setEmail(e)}
+              keyboardType="email-address"
+              onBlur={() => {
+                if (!emailRegex.test(email)) {
+                  setErrors((prevErrors) => {
+                    if (
+                      !prevErrors.includes(
+                        "Please enter a valid email address \n"
+                      )
+                    ) {
+                      return [
+                        ...prevErrors,
+                        "Please enter a valid email address \n",
+                      ];
+                    } else {
+                      return prevErrors;
+                    }
+                  });
                 } else {
-                  return prevErrors;
+                  setErrors((prevErrors) => {
+                    return prevErrors.filter(
+                      (error) =>
+                        error != "Please enter a valid email address \n"
+                    );
+                  });
                 }
-              });
-            } else {
-              setErrors((prevErrors) => {
-                return prevErrors.filter(
-                  (error) =>
-                    error != "Password must be at least 8 characters long \n"
-                );
-              });
-            }
-          }}
-        />
-      </View>
-      <TouchableOpacity style={styles.btn} onPress={() => onSubmit()}>
-        <Text style={styles.btnText}>Login</Text>
-      </TouchableOpacity>
-      <View>
-        <Text style={styles.createAccountText}>
-          Don`t Have An Account?!{" "}
-          <Text
+              }}
+            />
+          </View>
+          <View>
+            <Text style={styles.text}>Password:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="password"
+              placeholderTextColor={Colors.light4}
+              keyboardType="default"
+              secureTextEntry
+              selectionColor={Colors.primary}
+              value={password}
+              onChangeText={(e) => setPassword(e)}
+              onBlur={() => {
+                if (password.length < minPasswordLength) {
+                  setErrors((prevErrors) => {
+                    if (
+                      !prevErrors.includes(
+                        "Password must be at least 8 characters long \n"
+                      )
+                    ) {
+                      return [
+                        ...prevErrors,
+                        "Password must be at least 8 characters long \n",
+                      ];
+                    } else {
+                      return prevErrors;
+                    }
+                  });
+                } else {
+                  setErrors((prevErrors) => {
+                    return prevErrors.filter(
+                      (error) =>
+                        error !=
+                        "Password must be at least 8 characters long \n"
+                    );
+                  });
+                }
+              }}
+            />
+          </View>
+          <TouchableOpacity style={styles.btn} onPress={() => onSubmit()}>
+            <Text style={styles.btnText}>Login</Text>
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.createAccountText}>
+              Don`t Have An Account?!{" "}
+              <Text
+                style={{
+                  color: Colors.light3,
+                  textDecorationLine: "underline",
+                  paddingBottom: 5,
+                }}
+              >
+                {" "}
+                <Link href="/Auth/Forms/Sign-up">Create One</Link>
+              </Text>
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.error}>{errors.map((error) => error)}</Text>
+          </View>
+          <View
             style={{
-              color: Colors.light3,
-              textDecorationLine: "underline",
-              paddingBottom: 5,
+              width: "100%",
+              height: "150%",
+              display: isSignIngInAccount ? "flex" : "none",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              justifyContent: "center",
+              alignItems: "center",
+              opacity: 0.5,
+              position: "absolute",
             }}
           >
-            {" "}
-            <Link href="/Auth/Forms/Sign-up">Create One</Link>
-          </Text>
-        </Text>
-      </View>
-      <View>
-        <Text style={styles.error}>{errors.map((error) => error)}</Text>
-      </View>
-      <View
-        style={{
-          width: "100%",
-          height: "150%",
-          display: isSignIngInAccount ? "flex" : "none",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          justifyContent: "center",
-          alignItems: "center",
-          opacity: 0.5,
-          position: "absolute",
-        }}
-      >
-        <ActivityIndicator color={Colors.primary} size={"large"} />
-      </View>
+            <ActivityIndicator color={Colors.primary} size={"large"} />
+          </View>
+        </>
+      )}
     </Layout>
   );
 };

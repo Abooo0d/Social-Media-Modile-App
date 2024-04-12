@@ -12,7 +12,7 @@ const UserCard = ({ user }) => {
         />
         <View style={styles.textCon}>
           <Text style={styles.name}>{user.name}</Text>
-          <Text style={styles.username}>{user.username}</Text>
+          <Text style={styles.username}>@{user.username}</Text>
         </View>
       </View>
       <TouchableOpacity style={styles.followBtn}>
@@ -27,19 +27,21 @@ export default UserCard;
 const styles = StyleSheet.create({
   userCard: {
     width: "100%",
-    height: 160,
+    height: 120,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    gap: 5,
+    flexDirection: "row",
+    gap: 3,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Colors.dark4,
+    paddingHorizontal: 20,
   },
   subCard: {
     display: "flex",
     flexDirection: "row",
-    gap: 10,
+    gap: 3,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -48,21 +50,20 @@ const styles = StyleSheet.create({
     height: 75,
     borderRadius: 100,
   },
-  textCon: { minWidth: 150, paddingLeft: 15 },
+  textCon: { minWidth: 120, paddingLeft: 15 },
   name: {
     color: Colors.light2,
-    fontSize: 24,
+    fontSize: 20,
   },
   username: {
     color: Colors.light3,
-    fontSize: 20,
+    fontSize: 18,
   },
   followBtn: {
-    width: 100,
+    width: 75,
     borderRadius: 10,
-    backgroundColor: Colors.dark1,
+    backgroundColor: Colors.primary,
     borderWidth: 2,
-    borderColor: Colors.primary,
     paddingHorizontal: 15,
     paddingVertical: 5,
     display: "flex",

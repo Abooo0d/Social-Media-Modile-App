@@ -101,6 +101,7 @@ const _layout = () => {
         name="Pages/CreatePost/index"
         options={{
           title: "Create Post",
+          presentation: "modal",
           headerTitleStyle: {
             color: Colors.light2,
           },
