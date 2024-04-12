@@ -29,6 +29,7 @@ const index = () => {
   const showSearchResult = searchValue !== "";
   return (
     <View style={styles.usersForm}>
+      <Text style={styles.title}>Users Search</Text>
       <TextInput
         style={styles.input}
         placeholder="How Are You Looking For"
@@ -118,6 +119,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     padding: 10,
+  },
+  title: {
+    color: "#fff",
+    fontSize: 30,
+    margin: 10,
+    marginLeft: 20,
+    marginBottom: 20,
+    fontWeight: "700",
+    width: "100%",
+    textAlign: "left",
   },
   input: {
     backgroundColor: Colors.dark3,

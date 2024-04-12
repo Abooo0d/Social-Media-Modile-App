@@ -11,7 +11,30 @@ import {
   useLikePost,
   useSavePost,
 } from "../../lib/React-Query/queriesAndMutation";
-const PostStatus = ({ post, userId }) => {
+const PostStatus = ({ post, userId, explore = false }) => {
+  const styles = StyleSheet.create({
+    StatusContainer: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: explore ? "flex-end" : "space-between",
+      gap: explore ? 5 : 0,
+      alignItems: "center",
+      width: "100%",
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+    },
+    buttons: {
+      padding: 5,
+      borderRadius: 10,
+      width: 30,
+      height: 30,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    likeText: { color: Colors.light2, marginLeft: 5 },
+  });
   const { data: currentUser } = useGetCurrentUser();
   const { mutate: likePost } = useLikePost();
   const { mutate: savePost, isPending: isSavingPost } = useSavePost();
@@ -66,26 +89,3 @@ const PostStatus = ({ post, userId }) => {
 };
 
 export default PostStatus;
-
-const styles = StyleSheet.create({
-  StatusContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  buttons: {
-    padding: 5,
-    borderRadius: 10,
-    width: 30,
-    height: 30,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  likeText: { color: Colors.light2, marginLeft: 5 },
-});
