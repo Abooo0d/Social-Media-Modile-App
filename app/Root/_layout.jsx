@@ -49,7 +49,7 @@ const _layout = () => {
                 <Image
                   source={{ uri: user.imageUrl } || Profile}
                   style={{
-                    tintColor: !user.imageUrl ? Colors.primary : "",
+                    tintColor: !user.imageUrl && Colors.primary,
                     width: 35,
                     height: 35,
                     objectFit: "contain",
