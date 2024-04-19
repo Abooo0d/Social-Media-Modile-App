@@ -1,4 +1,5 @@
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -6,11 +7,20 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Colors } from "../../../../Constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
-
+import * as DocumentPicker from "expo-document-picker";
 const index = () => {
+  const choseFile = () => {
+    DocumentPicker.getDocumentAsync().then((data) => {
+      setImage(data.assets[0].uri);
+    });
+  };
+  const [image, setImage] = useState("");
+  const [caption, setCaption] = useState("");
+  const [location, setLocation] = useState("");
+  const [tags, setTags] = useState("");
   return (
     <View style={styles.createPostForm}>
       <Text style={styles.title}>Create Post</Text>
@@ -41,9 +51,22 @@ const index = () => {
         </View>
         <View style={styles.filedCon}>
           <Text style={styles.filedName}>Add Photo</Text>
-          <TouchableOpacity style={styles.addImageBtn}>
-            <FontAwesome name="image" size={50} color={Colors.light3} />
-            <Text style={styles.addImageText}>Click Here To Add An Image</Text>
+          <TouchableOpacity
+            style={styles.addImageBtn}
+            onPress={() => choseFile()}
+          >
+            {image !== "" ? (
+              <>
+                <Image source={{ uri: image }} style={styles.postImage} />
+              </>
+            ) : (
+              <>
+                <FontAwesome name="image" size={50} color={Colors.light3} />
+                <Text style={styles.addImageText}>
+                  Click Here To Add An Image
+                </Text>
+              </>
+            )}
           </TouchableOpacity>
         </View>
         <View style={styles.filedCon}>
@@ -138,8 +161,9 @@ const styles = StyleSheet.create({
   addImageBtn: {
     marginTop: 10,
     backgroundColor: Colors.dark3,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    // paddingHorizontal: 20,
+    // paddingVertical: 20,
+    padding: 10,
     height: 300,
     width: "100%",
     display: "flex",
@@ -152,4 +176,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.light3,
   },
+  postImage: { width: "100%", height: "100%", borderRadius: 10 },
 });
