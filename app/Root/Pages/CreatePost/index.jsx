@@ -42,8 +42,8 @@ const index = () => {
             placeholder="What Are You Thinking About"
             placeholderTextColor={Colors.light4}
             selectionColor={Colors.primary}
-            // value={email}
-            // onChangeText={(e) => setEmail(e)}
+            value={caption}
+            onChangeText={(e) => setCaption(e)}
             multiline={true}
             numberOfLines={3}
             keyboardType="default"
@@ -70,28 +70,33 @@ const index = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.filedCon}>
-          <Text style={styles.filedName}>LastName</Text>
+          <Text style={styles.filedName}>Location</Text>
           <TextInput
             style={styles.input}
             placeholder="What Are You Thinking About"
             placeholderTextColor={Colors.light4}
             selectionColor={Colors.primary}
-            // value={email}
-            // onChangeText={(e) => setEmail(e)}
+            value={location}
+            onChangeText={(e) => setLocation(e)}
             keyboardType="default"
           />
         </View>
         <View style={styles.filedCon}>
-          <Text style={styles.filedName}>Name</Text>
+          <Text style={styles.filedName}>Tags</Text>
           <TextInput
             style={styles.input}
             placeholder="What Are You Thinking About"
             placeholderTextColor={Colors.light4}
             selectionColor={Colors.primary}
-            // value={email}
-            // onChangeText={(e) => setEmail(e)}
+            value={tags}
+            onChangeText={(e) => setTags(e)}
             keyboardType="default"
           />
+        </View>
+        <View style={styles.filedCon}>
+          <TouchableOpacity style={styles.btn}>
+            <Text style={styles.btnText}>Create</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -177,4 +182,19 @@ const styles = StyleSheet.create({
     color: Colors.light3,
   },
   postImage: { width: "100%", height: "100%", borderRadius: 10 },
+  btn: {
+    backgroundColor: Colors.primary,
+    width: "100%",
+    textAlign: "center",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 20,
+    transition: 200,
+  },
+  btnText: {
+    textAlign: "center",
+    color: "#fff",
+    fontSize: 20,
+  },
 });
