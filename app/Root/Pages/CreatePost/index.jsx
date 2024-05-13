@@ -127,9 +127,6 @@ const styles = StyleSheet.create({
   },
   fieldsCon: {
     width: "100%",
-    // display: "flex",
-    // justifyContent: "center",
-    // alignItems: "flex-start",
     gap: 20,
     padding: 20,
   },
@@ -166,8 +163,6 @@ const styles = StyleSheet.create({
   addImageBtn: {
     marginTop: 10,
     backgroundColor: Colors.dark3,
-    // paddingHorizontal: 20,
-    // paddingVertical: 20,
     padding: 10,
     height: 300,
     width: "100%",
