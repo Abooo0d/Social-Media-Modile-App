@@ -98,7 +98,7 @@ const _layout = () => {
         }}
       />
       <Tabs.Screen
-        name="Pages/CreatePost/index"
+        name="Pages/CreatePost/CreatePost"
         options={{
           title: "Create Post",
           presentation: "modal",
@@ -142,12 +142,32 @@ const _layout = () => {
             />
           ),
         }}
-        listeners={() => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            alert("Abood");
-          },
-        })}
+        // listeners={() => ({
+        //   tabPress: (e) => {
+        //     e.preventDefault();
+        //     alert("Abood");
+        //   },
+        // })}
+      />
+      <Tabs.Screen
+        name="Pages/Chat/[id]"
+        options={{
+          title: "Chats",
+          href: null,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              size={22}
+              color={focused ? Colors.primary : "#aaa"}
+            />
+          ),
+        }}
+        // listeners={() => ({
+        //   tabPress: (e) => {
+        //     e.preventDefault();
+        //     alert("Abood");
+        //   },
+        // })}
       />
       <Tabs.Screen
         name="Pages/Saves/index"
@@ -162,12 +182,12 @@ const _layout = () => {
             />
           ),
         }}
-        listeners={() => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            alert("Abood");
-          },
-        })}
+        // listeners={() => ({
+        //   tabPress: (e) => {
+        //     e.preventDefault();
+        //     alert("Abood");
+        //   },
+        // })}
       />
     </Tabs>
   );

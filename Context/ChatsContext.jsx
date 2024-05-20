@@ -6,13 +6,13 @@ const INITIAL_STATE = {
   receiverId: "",
   messages: undefined,
   isGettingMessages: false,
-  setReceiverId: () => "",
-  setSenderId: () => "",
+  setReceiverId: () => {},
+  setSenderId: () => {},
 };
-const ChatsContext = createContext < IChatType > INITIAL_STATE;
+const ChatsContext = createContext(INITIAL_STATE);
 const ChatsProvider = ({ children }) => {
   const [senderId, setSenderId] = useState("");
-  const [receiverId, setReceiverId] = (useState < string) | (undefined > "");
+  const [receiverId, setReceiverId] = useState("");
   const [messages, setMessages] = useState();
   const [isGettingMessages, setIsGettingMessages] = useState(false);
   const FetchMessages = async () => {
